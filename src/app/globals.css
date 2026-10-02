@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f4f4f5;
+  --foreground: #18181b;
+  /* Carattere dei documenti stampati: da rivedere sugli esempi dello studio. */
+  --font-documento: Arial, Helvetica, sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* ---- Foglio A4 ---- */
+
+.foglio {
+  position: relative;
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 20mm 20mm 25mm;
+  background: white;
+  color: black;
+  font-family: var(--font-documento);
+  font-size: 11pt;
+  line-height: 1.45;
+  box-shadow:
+    0 1px 3px rgb(0 0 0 / 0.12),
+    0 8px 24px rgb(0 0 0 / 0.08);
+}
+
+.foglio .corpo {
+  text-align: justify;
+}
+
+.foglio .corpo > * + * {
+  margin-top: 0.8em;
+}
+
+.segnaposto {
+  color: #b45309;
+  background: #fef3c7;
+}
+
+/* ---- Stampa ---- */
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  html,
+  body,
+  main,
+  .anteprima {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+
+  .foglio {
+    /* un filo sotto i 297mm per non generare una pagina bianca in coda */
+    min-height: 296mm;
+    box-shadow: none;
+  }
+
+  .segnaposto {
+    color: inherit;
+    background: none;
+  }
+}
